@@ -4,7 +4,8 @@ variable "users" {
 }
 
 variable "groups" {
-    default = "terra-group"
+    type = set(string)
+    default = ["terra-group"]
 }
 
 variable "terra-group_policy" {

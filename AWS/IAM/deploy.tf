@@ -1,10 +1,40 @@
+# resource "aws_iam_user" "users" {
+#     name = var.users[count.index]
+#     count = length(var.users)
+# }
+
+# resource "aws_iam_group" "terra-group" {
+#     name = var.groups
+#     lifecycle {
+#         ignore_changes = all
+#     }
+# }
+
+# data "aws_iam_group" "terra-group" {
+#     group_name = "terra-group"
+#     depends_on = [ aws_iam_group.terra-group ]
+# }
+
+# resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
+#   name       = var.full-access-policy-attachment
+#   policy_arn = aws_iam_group_policy.terra-group_policy.arn
+#   groups     = [data.aws_iam_group.terra-group.name]
+# }
+
+# resource "aws_iam_group_policy" "terra-group_policy" {
+#   name  = var.terra-group_policy
+#   group = aws_iam_group.terra-group.group_name
+#   policy = file("./policy.json")
+# }
+
 resource "aws_iam_user" "users" {
     name = var.users[count.index]
     count = length(var.users)
 }
 
 resource "aws_iam_group" "terra-group" {
-    name = var.groups
+    for_each = { for idx, name in var.groups : idx => name }
+    name = each.value
     lifecycle {
         ignore_changes = all
     }
@@ -16,13 +46,15 @@ data "aws_iam_group" "terra-group" {
 }
 
 resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
-  name       = var.full-access-policy-attachment
-  policy_arn = aws_iam_group_policy.terra-group_policy.arn
-  groups     = [data.aws_iam_group.terra-group.name]
+  for_each = aws_iam_group.terra-group
+  name       = "${each.value}-full-access-policy-attachment"
+  policy_arn = aws_iam_group_policy.terra-group_policy[each.key].arn
+  groups     = [each.value]
 }
 
 resource "aws_iam_group_policy" "terra-group_policy" {
-  name  = var.terra-group_policy
-  group = aws_iam_group.terra-group.group_name
+  for_each = aws_iam_group.terra-group
+  name  = "${each.value}-policy"
+  group = each.value
   policy = file("./policy.json")
 }
