@@ -4,7 +4,7 @@ resource "aws_iam_user" "users" {
 }
 
 resource "aws_iam_group" "terra-group" {
-    name = var.groups[count.index]
+    name = var.groups
     lifecycle {
         ignore_changes = all
     }
