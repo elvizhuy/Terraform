@@ -1,3 +1,3 @@
-provider "aws" {
-    region = "ap-southeast-1a"
-}
+# provider "aws" {
+#     region = "ap-southeast-1a"
+# }
