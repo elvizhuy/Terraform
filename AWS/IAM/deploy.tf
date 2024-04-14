@@ -47,10 +47,11 @@ data "aws_iam_group" "terra-group" {
 
 resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
   for_each = aws_iam_group.terra-group
-  name       = "${each.value}-full-access-policy-attachment"
+  name       = "${each.key}-full-access-policy-attachment"
   policy_arn = aws_iam_group_policy.terra-group_policy[each.key].arn
-  groups     = [each.value]
+  groups     = [each.key]
 }
+
 
 resource "aws_iam_group_policy" "terra-group_policy" {
   for_each = aws_iam_group.terra-group
