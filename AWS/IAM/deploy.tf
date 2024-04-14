@@ -55,7 +55,7 @@ resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
 
 resource "aws_iam_group_policy" "terra-group_policy" {
   for_each = aws_iam_group.terra-group
-  name  = "${each.value}-policy"
-  group = each.value
+  name  = "${each.key}-policy"
+  group = each.key
   policy = file("./policy.json")
 }
