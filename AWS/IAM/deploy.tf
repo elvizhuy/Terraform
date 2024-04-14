@@ -48,7 +48,7 @@ data "aws_iam_group" "terra-group" {
 resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
   for_each = aws_iam_group.terra-group
   name       = "${each.key}-full-access-policy-attachment"
-  policy_arn = aws_iam_group_policy.terra-group_policy[each.key].arn
+  policy_arn = aws_iam_policy_attachment.full-access-policy[each.key].arn
   groups     = [each.key]
   depends_on = [ aws_iam_group.terra-group,aws_iam_group_policy.terra-group_policy ]
 }
