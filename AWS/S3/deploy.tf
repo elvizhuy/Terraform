@@ -1,5 +1,5 @@
 provider "aws" {
-    region = "ap-southeast-1a"
+    region = "ap-southeast-1"
 }
 resource "aws_s3_bucket" "development" {
     bucket = "dev-9890"
