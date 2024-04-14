@@ -15,3 +15,7 @@ variable "terra-group_policy" {
 variable "full-access-policy-attachment" {
     default = "full-access-policy-attachment"
 }
+
+variable "region" {
+    default = "ap-southeast-1"
+}
