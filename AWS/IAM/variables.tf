@@ -9,9 +9,9 @@ variable "groups" {
 }
 
 variable "terra-group_policy" {
-    name = "terra-group_policy"
+    default = "terra-group_policy"
 }
 
 variable "full-access-policy-attachment" {
-    name = "full-access-policy-attachment"
+    default = "full-access-policy-attachment"
 }
