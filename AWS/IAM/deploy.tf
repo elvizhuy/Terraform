@@ -5,7 +5,6 @@ resource "aws_iam_user" "users" {
 
 resource "aws_iam_group" "terra-group" {
     name = var.groups[count.index]
-    count = length(var.groups)
     lifecycle {
         ignore_changes = all
     }
@@ -25,18 +24,5 @@ resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
 resource "aws_iam_group_policy" "terra-group_policy" {
   name  = var.terra-group_policy.name
   group = aws_iam_group.terra-group.name
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action   = [
-          "ec2:*",
-          "s3:*",
-        ],
-        Effect   = "Allow",
-        Resource = "*",
-      },
-    ],
-  })
+  policy = jsonencode(file("./policy.json"))
 }
