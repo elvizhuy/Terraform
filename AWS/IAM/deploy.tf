@@ -22,7 +22,7 @@ resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
 }
 
 resource "aws_iam_group_policy" "terra-group_policy" {
-  name  = var.terra-group_policy.name
-  group = aws_iam_group.terra-group.name
-  policy = jsonencode(file("./policy.json"))
+  name  = var.terra-group_policy
+  group = aws_iam_group.terra-group.group_name
+  policy = file("./policy.json")
 }
