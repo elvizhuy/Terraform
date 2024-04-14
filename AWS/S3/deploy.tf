@@ -1,6 +1,3 @@
-provider "aws" {
-    region = "ap-southeast-1"
-}
 resource "aws_s3_bucket" "development" {
     bucket = "dev-9890"
     tags = {
@@ -12,4 +9,8 @@ resource "aws_s3_object" "dev" {
     content = "/home/huynn/devops.txt"
     key = "devops.txt"
     bucket = aws_s3_bucket.development.id
+}
+
+data "aws_iam_group" "terra-group" {
+    group_name = "terra-group"
 }
