@@ -12,7 +12,7 @@ resource "aws_s3_object" "dev" {
 }
 
 data "aws_iam_group" "terra-group" {
-    group_name = "terra-group"
+    group_name = var.iam_group
 }
 
 data "aws_iam_policy_document" "allow_access_from_another_account" {
