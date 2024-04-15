@@ -69,7 +69,7 @@ resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
   name       = "${each.key}-full-access-policy-attachment"
   policy_arn = aws_iam_policy.terra-group_policy[each.key].arn
   groups     = [each.key]
-  depends_on = [ aws_iam_group.terra-group,aws_iam_group_policy.terra-group_policy]
+  depends_on = [ aws_iam_group.terra-group,aws_iam_policy.terra-group_policy]
 }
 
 
