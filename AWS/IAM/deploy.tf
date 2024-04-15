@@ -55,10 +55,7 @@ data "aws_iam_group" "terra-group" {
     depends_on = [ aws_iam_group.terra-group ]
 }
 
-data "aws_iam_group_policy" "group_policy" {
-  for_each = aws_iam_group.terra-group
-  name = try(aws_iam_group_policy.terra-group_policy[each.key].name, null)
-}
+
 
 resource "aws_iam_group_policy" "terra-group_policy" {
   for_each = aws_iam_group.terra-group
