@@ -47,7 +47,7 @@ resource "aws_iam_group_membership" "group_membership" {
   count    = length(aws_iam_user.users)
   name     = aws_iam_user.users[count.index]
   users    = [aws_iam_user.users[count.index]]
-  group    = aws_iam_group.terra-group[each.key].name
+  group    = data.aws_iam_group.terra-group.group_name
 }
 
 data "aws_iam_group" "terra-group" {
