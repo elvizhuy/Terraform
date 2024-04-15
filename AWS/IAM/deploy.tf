@@ -48,7 +48,7 @@ resource "aws_iam_group_membership" "group_membership" {
 }
 
 data "aws_iam_group" "terra-group" {
-    name = "terra-group"
+    group_name = "terra-group"
     depends_on = [ aws_iam_group.terra-group ]
 }
 
