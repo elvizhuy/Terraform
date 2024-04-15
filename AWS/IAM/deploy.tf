@@ -40,9 +40,23 @@ resource "aws_iam_group" "terra-group" {
     }
 }
 
+resource "aws_iam_group_membership" "group_membership" {
+  for_each = aws_iam_user.users
+  name     = each.key
+  users    = [each.value.name]
+  group    = aws_iam_group.terra-group.name
+}
+
 data "aws_iam_group" "terra-group" {
-    group_name = "terra-group"
+    name = "terra-group"
     depends_on = [ aws_iam_group.terra-group ]
+}
+
+resource "aws_iam_group_policy" "terra-group_policy" {
+  for_each = aws_iam_group.terra-group
+  name  = "${each.key}-policy"
+  group = each.key
+  policy = file("./policy.json")
 }
 
 resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
@@ -54,9 +68,4 @@ resource "aws_iam_policy_attachment" "full-access-policy-attachment" {
 }
 
 
-resource "aws_iam_group_policy" "terra-group_policy" {
-  for_each = aws_iam_group.terra-group
-  name  = "${each.key}-policy"
-  group = each.key
-  policy = file("./policy.json")
-}
+
