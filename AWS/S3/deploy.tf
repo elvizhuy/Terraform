@@ -30,7 +30,7 @@ data "aws_iam_policy_document" "allow_access_from_another_account" {
 
     resources = [
       aws_s3_bucket.development.arn,
-      "${aws_s3_bucket.development.bucket.arn}/*",
+      "${aws_s3_bucket.development.arn}/*",
     ]
   }
 }
