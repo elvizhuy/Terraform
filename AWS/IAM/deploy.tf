@@ -34,7 +34,7 @@ resource "aws_iam_user" "users" {
 
 resource "aws_iam_group" "terra-group" {
     for_each = { for idx, name in var.groups : idx => name }
-    name = each.value
+    group_name = each.value
     lifecycle {
         ignore_changes = all
     }
