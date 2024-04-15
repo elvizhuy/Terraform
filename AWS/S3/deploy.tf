@@ -1,12 +1,12 @@
 resource "aws_s3_bucket" "development" {
-    bucket = "dev-9890"
+    bucket = var.bucket_name
     tags = {
     Description = "devops"
     }
 }
 
 resource "aws_s3_object" "dev" {
-    content = "/home/huynn/devops.txt"
+    content = var.content
     key = "devops.txt"
     bucket = aws_s3_bucket.development.id
 }
