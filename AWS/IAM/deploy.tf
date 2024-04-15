@@ -44,7 +44,7 @@ resource "aws_iam_group_membership" "group_membership" {
   for_each = aws_iam_user.users
   name     = each.key
   users    = [each.value.name]
-  group    = aws_iam_group.terra-group.name
+  group    = aws_iam_group.terra-group[each.key].name
 }
 
 data "aws_iam_group" "terra-group" {
