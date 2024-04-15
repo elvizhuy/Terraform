@@ -60,7 +60,6 @@ resource "aws_iam_policy" "terra-group_policy" {
   for_each = aws_iam_group.terra-group
   name  = "${each.key}-policy"
   description = "Policy for ${each.key} group"
-  group = each.key
   policy = file("./policy.json")
 }
 
