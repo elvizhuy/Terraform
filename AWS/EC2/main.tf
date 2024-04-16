@@ -13,7 +13,7 @@ resource "aws_instance" "webserver" {
                 sudo systemctl enable nginx.service
                 sudo systemctl start nginx.service
                 EOF
-                
+
 #    provisioner "remote-exec" {
 #        inline = [ "sudo apt update",
 #                   "sudo apt install -y nginx",
@@ -23,12 +23,12 @@ resource "aws_instance" "webserver" {
 #    }
 
     provisioner "local-exec" {
-        command = "echo Instance ${self.public_ip}" Created! > /tmp/instance_state.txt
+        command = "echo Instance ${self.public_ip} Created! > /tmp/instance_state.txt"
     }
 
     provisioner "local-exec" {
         when = destroy
-        command = "echo Instance ${self.public_ip}" Deleted! > /tmp/instance_state.txt
+        command = "echo Instance ${self.public_ip} Deleted! > /tmp/instance_state.txt"
     }
 
     connection {
