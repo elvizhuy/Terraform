@@ -7,8 +7,8 @@ resource "aws_instance" "webserver" {
     }
     user_data = <<- EOF
                 #! /bin/bash
-                yum update
-                yum install -y nginx
+                dnf update
+                dnf install -y nginx
                 systemctl start nginx.service
                 systemctl enable nginx.service
                 EOF
