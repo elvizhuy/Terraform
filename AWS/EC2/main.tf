@@ -3,7 +3,7 @@ resource "aws_instance" "webserver" {
     instance_type = "t2.micro"
     tags {
         name = "webserver"
-        Description = "Web Server for Ubuntu"
+        description = "Web Server for Ubuntu"
     }
 
     provisioner "remote-exec" {
@@ -20,7 +20,7 @@ resource "aws_instance" "webserver" {
 
 resource "aws_security_group" "ssh-access" {
     name = "ssh-access"
-    Description = "Allow SSH access from the internet"
+    description = "Allow SSH access from the internet"
     ingress {
         from_port = 22
         to_port = 22
