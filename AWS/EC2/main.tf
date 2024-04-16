@@ -21,14 +21,14 @@ resource "aws_instance" "webserver" {
 #                 ]
 #    }
 
-#    provisioner "local-exec" {
-#        command = "echo Instance ${aws_instance.webserver.public_ip}" Created! > /tmp/instance_state.txt
-#    }
+    provisioner "local-exec" {
+        command = "echo Instance ${aws_instance.webserver.public_ip}" Created! > /tmp/instance_state.txt
+    }
 
-#    provisioner "local-exec" {
-#        when = destroy
-#        command = "echo Instance ${aws_instance.webserver.public_ip}" Deleted! > /tmp/instance_state.txt
-#    }
+    provisioner "local-exec" {
+        when = destroy
+        command = "echo Instance ${aws_instance.webserver.public_ip}" Deleted! > /tmp/instance_state.txt
+    }
 
     connection {
         type = "ssh"
