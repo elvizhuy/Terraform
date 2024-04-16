@@ -1,7 +1,7 @@
 resource "aws_instance" "webserver" {
     ami = "ami-08e4b984abde34a4f"
     instance_type = "t2.micro"
-    tags {
+    tags = {
         name = "webserver"
         description = "Web Server for Ubuntu"
     }
@@ -15,7 +15,7 @@ resource "aws_instance" "webserver" {
     }
 
     key_name = aws_key_pair.web.id
-    vpc_security_groups_ids = [ aws_security_group.ssh-access.id ]
+    vpc_security_group_ids = [ aws_security_group.ssh-access.id ]
 }
 
 resource "aws_security_group" "ssh-access" {
