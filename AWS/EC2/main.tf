@@ -6,22 +6,29 @@ resource "aws_instance" "webserver" {
         description = "Web Server for Ubuntu"
     }
 
-    provisioner "remote-exec" {
-        inline = [ "sudo apt update",
-                   "sudo apt install -y nginx",
-                   "sudo systemctl enable nginx.service",
-                   "sudo systemctl start nginx.service"
-                 ]
-    }
+    user_data = <<- EOF
+                #! /bin/bash 
+                sudo apt update
+                sudo apt install -y nginx
+                sudo systemctl enable nginx.service
+                sudo systemctl start nginx.service
+    EOF
+#    provisioner "remote-exec" {
+#        inline = [ "sudo apt update",
+#                   "sudo apt install -y nginx",
+#                   "sudo systemctl enable nginx.service",
+#                   "sudo systemctl start nginx.service"
+#                 ]
+#    }
 
-    provisioner "local-exec" {
-        command = "echo Instance ${aws_instance.webserver.public_ip}" Created! > /tmp/instance_state.txt
-    }
+#    provisioner "local-exec" {
+#        command = "echo Instance ${aws_instance.webserver.public_ip}" Created! > /tmp/instance_state.txt
+#    }
 
-    provisioner "local-exec" {
-        when = destroy
-        command = "echo Instance ${aws_instance.webserver.public_ip}" Deleted! > /tmp/instance_state.txt
-    }
+#    provisioner "local-exec" {
+#        when = destroy
+#        command = "echo Instance ${aws_instance.webserver.public_ip}" Deleted! > /tmp/instance_state.txt
+#    }
 
     connection {
         type = "ssh"
