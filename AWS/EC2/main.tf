@@ -30,7 +30,7 @@ resource "aws_security_group" "ssh-access" {
 }
 
 resource "aws_key_pair" "web" {
-    public_key = file("/home/huynn/.ssh/web.pub)
+    public_key = file("/home/huynn/.ssh/web.pub")
 }
 
 output publicip {
