@@ -14,6 +14,13 @@ resource "aws_instance" "webserver" {
                  ]
     }
 
+    connection {
+        type = "ssh"
+        host = self.public_ip
+        user = "ubuntu"
+        private_key = "/home/huynn/.ssh/id_rsa"
+    }
+
     key_name = aws_key_pair.web.id
     vpc_security_group_ids = [ aws_security_group.ssh-access.id ]
 }
